@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gender Bias in AI Women's Day 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0a0a0a;
+  --paper: #f5f0e8;
+  --pink: #c8365a;
+  --blue: #1a4a8a;
+  --gold: #c9a84c;
+  --muted: #6b6560;
+  --border: #d4cdc4;
+  --white: #fdfaf5;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── Grain overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ── Masthead ── */
+.masthead {
+  border-bottom: 2px solid var(--ink);
+  padding: 16px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.masthead-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.masthead-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* ── Hero ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 92vh;
+  border-bottom: 2px solid var(--ink);
+}
+.hero-left {
+  background: var(--ink);
+  color: var(--white);
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.hero-left::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,54,90,0.15) 0%, transparent 70%);
+  top: -100px; left: -100px;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 32px;
+  position: relative;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--pink);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  position: relative;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--pink);
+}
+.hero-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(253,250,245,0.65);
+  max-width: 380px;
+  margin-top: 32px;
+}
+.hero-modules {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 48px;
+}
+.hero-module-tag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(253,250,245,0.5);
+}
+.hero-module-tag span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-pink { background: var(--pink); }
+.dot-blue { background: #60a5fa; }
+.dot-gold { background: var(--gold); }
+
+.hero-right {
+  background: var(--white);
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 2px solid var(--ink);
+}
+.hero-stat-block {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+.hero-stat-block:last-child { border-bottom: 1px solid var(--border); }
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pink);
+  display: block;
+}
+.stat-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ── Section commons ── */
+section { padding: 100px 60px; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+}
+.section-title em { font-style: italic; color: var(--pink); }
+
+/* ── Problem statement ── */
+.problem {
+  background: var(--ink);
+  color: var(--white);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 60px;
+}
+.problem-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(253,250,245,0.8);
+  border-left: 3px solid var(--pink);
+  padding-left: 24px;
+}
+.problem-body p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(253,250,245,0.7);
+  margin-bottom: 20px;
+}
+.problem-body p strong { color: var(--white); font-weight: 500; }
+
+/* ── Modules ── */
+.modules-section { background: var(--white); padding: 100px 0; }
+.modules-inner { padding: 0 60px; }
+
+.module-card {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 0;
+  border-top: 2px solid var(--ink);
+  padding: 60px 0;
+  align-items: start;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.module-card.visible { opacity: 1; transform: translateY(0); }
+.module-card:last-child { border-bottom: 2px solid var(--ink); }
+
+.module-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--border);
+  padding-top: 4px;
+}
+.module-content { padding: 0 40px 0 20px; border-right: 1px solid var(--border); }
+.module-icon { font-size: 1.5rem; margin-bottom: 16px; }
+.module-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.module-dataset {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.module-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.module-findings { padding-left: 40px; }
+.finding-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.finding-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.finding-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 90px;
+}
+.pink { color: var(--pink); }
+.blue { color: var(--blue); }
+.gold { color: var(--gold); }
+.finding-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+  padding-top: 6px;
+}
+.finding-text strong { color: var(--ink); font-weight: 500; }
+
+/* ── Stats banner ── */
+.stats-banner {
+  background: var(--pink);
+  color: var(--white);
+  padding: 0 60px;
+  overflow: hidden;
+}
+.stats-ticker {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.ticker-item {
+  flex: 1;
+  padding: 48px 40px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+}
+.ticker-item:last-child { border-right: none; }
+.ticker-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.ticker-label {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* ── Why it matters ── */
+.why {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+.why-left {
+  padding: 100px 60px;
+  border-right: 2px solid var(--ink);
+}
+.why-right {
+  padding: 100px 60px;
+  background: var(--ink);
+  color: var(--white);
+}
+.theme-list { margin-top: 48px; }
+.theme-item {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.theme-item:first-child { border-top: 1px solid var(--border); }
+.theme-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  padding-top: 3px;
+  flex-shrink: 0;
+}
+.theme-body h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.theme-body p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.reco-list { margin-top: 48px; display: flex; flex-direction: column; gap: 20px; }
+.reco-item {
+  background: rgba(253,250,245,0.05);
+  border: 1px solid rgba(253,250,245,0.1);
+  border-radius: 4px;
+  padding: 20px 24px;
+}
+.reco-item h4 { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--white); }
+.reco-item p { font-size: 13px; color: rgba(253,250,245,0.55); line-height: 1.6; }
+.reco-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* ── CTA / Footer ── */
+.cta {
+  padding: 120px 60px;
+  text-align: center;
+  background: var(--white);
+}
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+.cta-title em { font-style: italic; color: var(--pink); }
+.cta-sub { font-size: 16px; color: var(--muted); margin-bottom: 48px; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary { background: var(--ink); color: var(--white); }
+.btn-primary:hover { background: var(--pink); }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+.btn-outline:hover { background: var(--ink); color: var(--white); }
+
+.footer {
+  background: var(--ink);
+  color: rgba(253,250,245,0.4);
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid rgba(253,250,245,0.1);
+}
+.footer-left {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: rgba(253,250,245,0.6);
+}
+.footer-right {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(253,250,245,0.1);
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+nav.visible { transform: translateY(0); }
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--white);
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(253,250,245,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--pink); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-left > * { animation: fadeUp 0.8s ease both; }
+.hero-eyebrow  { animation-delay: 0.1s; }
+.hero-title    { animation-delay: 0.25s; }
+.hero-subtitle { animation-delay: 0.4s; }
+.hero-modules  { animation-delay: 0.55s; }
+.hero-right > * { animation: fadeUp 0.8s ease both; animation-delay: 0.4s; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero, .why { grid-template-columns: 1fr; }
+  .hero-right { border-left: none; border-top: 2px solid var(--ink); }
+  .why-left { border-right: none; border-bottom: 2px solid var(--ink); }
+  .module-card { grid-template-columns: 60px 1fr; }
+  .module-findings { display: none; }
+  .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+  .stats-ticker { flex-direction: column; }
+  .ticker-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); }
+  section, .modules-inner, .cta, nav { padding-left: 24px; padding-right: 24px; }
+  .masthead, .footer, .stats-banner { padding-left: 24px; padding-right: 24px; }
+  .hero-left, .hero-right, .why-left, .why-right { padding: 60px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="nav">
+  <div class="nav-logo">Gender Bias in AI</div>
+  <div class="nav-links">
+    <a href="#modules">Modules</a>
+    <a href="#findings">Findings</a>
+    <a href="#recommendations">Recommendations</a>
+    <a href="#cta">Project</a>
+  </div>
+</nav>
+
+<!-- Masthead -->
+<div class="masthead">
+  <span class="masthead-tag">🌸 Women's Day 2026 · Data Science Investigation</span>
+  <span class="masthead-date">March 8, 2025 · Vol. I</span>
+</div>
+
+<!-- Hero -->
+<section class="hero" style="padding:0">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">Data Science · AI Fairness</div>
+      <h1 class="hero-title">
+        Gender<br>
+        <em>Bias</em><br>
+        in AI
+      </h1>
+      <p class="hero-subtitle">
+        A data-driven investigation into how artificial intelligence systems encode, amplify, and perpetuate gender inequality — across vision, language, and image generation.
+      </p>
+    </div>
+    <div class="hero-modules">
+      <div class="hero-module-tag"><span class="dot-pink"></span> Module 1 — Facial Recognition · FairFace Dataset</div>
+      <div class="hero-module-tag"><span class="dot-blue"></span> Module 2 — Job Recommender · Bias in Bios Dataset</div>
+      <div class="hero-module-tag"><span class="dot-gold"></span> Module 3 — Text-to-Image · Gender in Image Search</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-block">
+      <span class="stat-number">108K</span>
+      <p class="stat-label">facial images analysed across 7 race groups and 2 genders in the FairFace dataset</p>
+    </div>
+    <div class="hero-stat-block">
+      <span class="stat-number">257K</span>
+      <p class="stat-label">professional biographies examined for occupational gender stereotyping</p>
+    </div>
+    <div class="hero-stat-block">
+      <span class="stat-number">3,262</span>
+      <p class="stat-label">AI-generated images compared against real-world Bureau of Labor Statistics data</p>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="problem" id="problem">
+  <div class="section-label" style="color:rgba(253,250,245,0.3)">01 — The Problem</div>
+  <h2 class="section-title" style="color:var(--white)">
+    AI systems are not<br><em>neutral mirrors</em>
+  </h2>
+  <div class="problem-grid">
+    <blockquote class="problem-quote">
+      "Bias starts at data collection — not just in the algorithm."
+    </blockquote>
+    <div class="problem-body">
+      <p>Despite significant progress in AI capabilities, <strong>gender bias remains a persistent and measurable problem</strong> across AI systems. Facial recognition models perform significantly worse on women — particularly dark-skinned women. Job recommendation systems associate high-paying professions with men and lower-paying ones with women. Image generators consistently underrepresent women in positions of power.</p>
+      <p>These are not minor technical glitches — they are <strong>systemic patterns with real consequences</strong>: women being misidentified by security systems, steered away from career opportunities, and rendered invisible in the visual language of authority and expertise.</p>
+      <p>This project investigates, measures, and communicates these biases using real public datasets and rigorous statistical methods.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Modules -->
+<div class="modules-section" id="modules">
+  <div class="modules-inner">
+    <div class="section-label">02 — The Investigation</div>
+
+    <div class="module-card" id="mc1">
+      <div class="module-num">01</div>
+      <div class="module-content">
+        <div class="module-icon">📸</div>
+        <h3 class="module-title">Facial Recognition Bias</h3>
+        <div class="module-dataset">Dataset: FairFace · 108,501 images</div>
+        <p class="module-desc">Analyses gender representation across skin tone groups using the Fitzpatrick scale. Measures whether dark-skinned women are underrepresented in facial recognition training data — and by how much.</p>
+      </div>
+      <div class="module-findings">
+        <div class="finding-item">
+          <div class="finding-val pink">0.68</div>
+          <div class="finding-text"><strong>Female-to-Male ratio</strong> for dark-skinned faces, the lowest of any group. Ideal parity = 1.0</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-val pink">p&lt;.001</div>
+          <div class="finding-text"><strong>Chi-Square test result</strong> — gender distribution is significantly unequal across skin tone groups</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-val pink">34%</div>
+          <div class="finding-text"><strong>Higher error rate</strong> for dark-skinned women in commercial facial recognition (Gender Shades, MIT)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" id="mc2">
+      <div class="module-num">02</div>
+      <div class="module-content">
+        <div class="module-icon">💼</div>
+        <h3 class="module-title">Occupational Gender Bias</h3>
+        <div class="module-dataset">Dataset: Bias in Bios · 257,477 biographies</div>
+        <p class="module-desc">Examines 28 professions across 257K real biographies to measure how strongly gender is associated with occupation and what salary gap emerges from those associations.</p>
+      </div>
+      <div class="module-findings">
+        <div class="finding-item">
+          <div class="finding-val blue">0.41</div>
+          <div class="finding-text"><strong>Cramér's V effect size</strong>  strong gender-occupation association. Anything above 0.3 is considered large</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-val blue">~37%</div>
+          <div class="finding-text"><strong>Lower average salary</strong> associated with female-coded professions vs male-coded ones in the training data</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-val blue">86%</div>
+          <div class="finding-text"><strong>Female representation</strong> in nurse biographies vs just 15% in surgeon biographies</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" id="mc3">
+      <div class="module-num">03</div>
+      <div class="module-content">
+        <div class="module-icon">🎨</div>
+        <h3 class="module-title">Text-to-Image Gender Bias</h3>
+        <div class="module-dataset">Dataset: Gender in Image Search · 3,262 labelled images</div>
+        <p class="module-desc">Compares AI image search gender representation against real-world Bureau of Labor Statistics workforce data across 45 occupations and two search providers (Google & Bing).</p>
+      </div>
+      <div class="module-findings">
+        <div class="finding-item">
+          <div class="finding-val gold">p&lt;.05</div>
+          <div class="finding-text"><strong>Paired t-test result</strong> AI systematically underrepresents women across occupations vs reality</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-val gold">−18%</div>
+          <div class="finding-text"><strong>Surgeon bias gap</strong>  AI shows 18% fewer women surgeons than actually exist in the real workforce</div>
+        </div>
+        <div class="finding-item">
+          <div class="finding-val gold">R²=.94</div>
+          <div class="finding-text"><strong>AI vs Reality correlation</strong>  AI learns from web data but compresses representation toward historical stereotypes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats banner -->
+<div class="stats-banner" id="findings">
+  <div class="stats-ticker">
+    <div class="ticker-item">
+      <span class="ticker-val" data-target="3">0</span>
+      <span class="ticker-label">AI domains<br>investigated</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val" data-target="368">0</span>
+      <span class="ticker-label">thousand records<br>analysed</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val" data-target="28">0</span>
+      <span class="ticker-label">professions<br>examined</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val" data-target="37">0</span>
+      <span class="ticker-label">percent salary gap<br>in training data</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-val" data-target="100">0</span>
+      <span class="ticker-label">percent of bias tests<br>statistically significant</span>
+    </div>
+  </div>
+</div>
+
+<!-- Why it matters / Recommendations -->
+<div class="why" id="recommendations">
+  <div class="why-left">
+    <div class="section-label">03 — Cross-Cutting Themes</div>
+    <h2 class="section-title">Why this<br><em>matters</em></h2>
+    <div class="theme-list">
+      <div class="theme-item">
+        <span class="theme-num">01</span>
+        <div class="theme-body">
+          <h4>Bias starts in data, not algorithms</h4>
+          <p>All three systems inherit their bias from training data that reflects historical inequality. The algorithm is often neutral but what it learns from is not.</p>
+        </div>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num">02</span>
+        <div class="theme-body">
+          <h4>Feedback loops amplify inequality</h4>
+          <p>Biased AI outputs become tomorrow's training data. If job recommenders steer women away from senior roles, future datasets show fewer women there  confirming the bias in a closed loop.</p>
+        </div>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num">03</span>
+        <div class="theme-body">
+          <h4>Intersectionality is the blind spot</h4>
+          <p>Dark-skinned women face compounded bias. Most fairness tools still don't measure this intersection  they evaluate gender or race, but not both simultaneously.</p>
+        </div>
+      </div>
+      <div class="theme-item">
+        <span class="theme-num">04</span>
+        <div class="theme-body">
+          <h4>Measurement is the first act of justice</h4>
+          <p>None of these biases can be fixed without first being quantified. This is why bias auditing datasets are not just academic exercises  they are infrastructure for fairness.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="why-right">
+    <div class="section-label" style="color:rgba(253,250,245,0.3)">04 — Recommendations</div>
+    <h2 class="section-title" style="color:var(--white)">What should<br><em>change</em></h2>
+    <div class="reco-list">
+      <div class="reco-item">
+        <span class="reco-tag">For Practitioners</span>
+        <h4>Audit training data intersectionally</h4>
+        <p>Measure gender × race × age representation before model training. Overall accuracy hides who the system fails.</p>
+      </div>
+      <div class="reco-item">
+        <span class="reco-tag">For Researchers</span>
+        <h4>Build intersectional benchmarks</h4>
+        <p>Single-axis fairness metrics are insufficient. Develop benchmarks that measure bias at the intersection of multiple identity dimensions.</p>
+      </div>
+      <div class="reco-item">
+        <span class="reco-tag">For Organisations</span>
+        <h4>Diversify AI teams</h4>
+        <p>Lived experience catches what p-values miss. Include diverse voices at every stage — from data collection to deployment decisions.</p>
+      </div>
+      <div class="reco-item">
+        <span class="reco-tag">For Everyone</span>
+        <h4>Demand transparency</h4>
+        <p>Ask AI vendors for disaggregated performance metrics. Accountability starts with visibility.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="section-label" style="justify-content:center; margin-bottom:40px">05 — The Project</div>
+  <h2 class="cta-title">Explore the<br><em>full analysis</em></h2>
+  <p class="cta-sub">Full Jupyter notebook · Statistical tests · Interactive charts · Real datasets</p>
+  <div class="cta-buttons">
+    <a href="https://github.com/YOUR_USERNAME/gender-bias-in-ai" class="btn btn-primary" target="_blank">
+      ⬡ View on GitHub
+    </a>
+    <a href="https://kaggle.com/YOUR_USERNAME" class="btn btn-outline" target="_blank">
+      ◈ Open Notebook
+    </a>
+    <a href="gender_bias_ai.html" class="btn btn-outline">
+      ▷ Interactive Dashboard
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-left">Gender Bias in AI</div>
+  <div class="footer-right">
+    Built for Women's Day 2025<br>
+    Data: FairFace · Bias in Bios · Gender in Image Search<br>
+    Python · Pandas · Matplotlib · SciPy
+  </div>
+</footer>
+
+<script>
+// ── Sticky nav ────────────────────────────────────────────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── Scroll reveal for module cards ───────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 150);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.module-card').forEach(c => observer.observe(c));
+
+// ── Counter animation ─────────────────────────────────────────────────────────
+function animateCounter(el, target, duration = 1800) {
+  let start = 0;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString();
+  };
+  requestAnimationFrame(step);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('[data-target]').forEach(el => {
+        animateCounter(el, parseInt(el.dataset.target));
+      });
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stats-ticker').forEach(el => counterObserver.observe(el));
+</script>
+</body>
+</html>
