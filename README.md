@@ -40,33 +40,7 @@ This project investigates **gender bias across three distinct AI systems** using
 
 ---
 
-## 📂 Repository Structure
-
-```
-gender-bias-in-ai/
-│
-├── 📓 notebook.ipynb                        ← Main Jupyter notebook
-├── 📊 dashboard/
-│   └── gender_bias_ai.html                  ← Interactive web dashboard
-├── 📁 data/
-│   ├── fairface_label_train.csv             ← FairFace dataset labels
-│   ├── filtered_bls_occupations.csv         ← BLS occupation gender data
-│   └── gender_labelled_images.csv           ← Image search gender labels
-├── 📈 charts/
-│   ├── m1_gender_skintone.png
-│   ├── m1_underrep.png
-│   ├── m2_occupation_skew.png
-│   ├── m2_salary.png
-│   ├── m3_bls_distribution.png
-│   ├── m3_bias_gap.png
-│   └── m3_scatter.png
-├── 📄 requirements.txt
-└── 📄 README.md
-```
-
----
-
-## 🗂️ Datasets
+##  Datasets
 
 | Dataset | Source | Size | License |
 |---------|--------|------|---------|
@@ -75,46 +49,6 @@ gender-bias-in-ai/
 | Gender in Image Search | [GitHub (mjskay)](https://github.com/mjskay/gender-in-image-search) | 3.2K labelled images | CC BY 4.0 |
 
 >  Raw image files are not included in this repo due to size. Download links above.
-
----
-
-## ⚙️ Setup & Installation
-
-### 1. Clone the repo
-```bash
-git clone https://github.com/YOUR_USERNAME/gender-bias-in-ai.git
-cd gender-bias-in-ai
-```
-
-### 2. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Download datasets
-- Download `fairface_label_train.csv` from Kaggle
-- Bias in Bios loads automatically via `pd.read_parquet()` in the notebook
-- Clone the Gender in Image Search repo into the `data/` folder
-
-### 4. Run the notebook
-```bash
-jupyter notebook notebook.ipynb
-```
-Run cells **top to bottom** in order.
-
----
-
-## 📦 Requirements
-
-```
-pandas>=1.5.0
-numpy>=1.23.0
-matplotlib>=3.6.0
-seaborn>=0.12.0
-scipy>=1.9.0
-pyarrow>=14.0.1
-jupyter>=1.0.0
-```
 
 ---
 

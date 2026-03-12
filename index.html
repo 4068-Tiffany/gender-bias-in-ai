@@ -4,840 +4,481 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gender Bias in AI Women's Day 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --ink: #0a0a0a;
-  --paper: #f5f0e8;
-  --pink: #c8365a;
-  --blue: #1a4a8a;
-  --gold: #c9a84c;
-  --muted: #6b6560;
-  --border: #d4cdc4;
-  --white: #fdfaf5;
+  --ink: #0a0a0a; --paper: #f5f0e8; --pink: #c8365a;
+  --blue: #1a4a8a; --gold: #c9a84c; --muted: #6b6560;
+  --border: #d4cdc4; --white: #fdfaf5;
 }
+html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Outfit', sans-serif; font-weight: 300; }
 
-html { scroll-behavior: smooth; }
+/* ── Slide engine ── */
+.slide { position: fixed; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.6s ease, transform 0.6s ease; transform: translateY(24px); overflow: hidden; }
+.slide.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+.slide.exit   { opacity: 0; transform: translateY(-24px); transition: opacity 0.35s ease, transform 0.35s ease; }
 
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
-}
+/* ── Nav bar ── */
+.nav-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 54px; background: rgba(10,10,10,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--white); }
+.nav-dots { display: flex; gap: 8px; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: all 0.3s; border: none; }
+.nav-dot.active { background: var(--pink); transform: scale(1.5); }
+.nav-counter { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 2px; }
 
-/* ── Grain overlay ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.4;
-}
+/* ── Arrows ── */
+.nav-arrows { position: fixed; bottom: 32px; right: 44px; z-index: 1000; display: flex; gap: 10px; }
+.arrow-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 17px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
+.arrow-btn:hover { border-color: var(--pink); color: var(--pink); }
+.arrow-btn:disabled { opacity: 0.18; cursor: not-allowed; }
 
-/* ── Masthead ── */
-.masthead {
-  border-bottom: 2px solid var(--ink);
-  padding: 16px 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.masthead-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.masthead-date {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 1px;
-}
+/* ── Progress ── */
+.progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--pink); transition: width 0.5s ease; z-index: 1000; }
+.key-hint { position: fixed; bottom: 40px; left: 44px; font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.18); letter-spacing: 1px; z-index: 1000; }
 
-/* ── Hero ── */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 92vh;
-  border-bottom: 2px solid var(--ink);
-}
-.hero-left {
-  background: var(--ink);
-  color: var(--white);
-  padding: 80px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-}
-.hero-left::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,54,90,0.15) 0%, transparent 70%);
-  top: -100px; left: -100px;
-}
-.hero-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--pink);
-  margin-bottom: 32px;
-  position: relative;
-}
-.hero-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 24px; height: 1px;
-  background: var(--pink);
-  vertical-align: middle;
-  margin-right: 12px;
-}
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -1px;
-  position: relative;
-}
-.hero-title em {
-  font-style: italic;
-  color: var(--pink);
-}
-.hero-subtitle {
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: rgba(253,250,245,0.65);
-  max-width: 380px;
-  margin-top: 32px;
-}
-.hero-modules {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 48px;
-}
-.hero-module-tag {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: rgba(253,250,245,0.5);
-}
-.hero-module-tag span {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.dot-pink { background: var(--pink); }
-.dot-blue { background: #60a5fa; }
-.dot-gold { background: var(--gold); }
+/* ── Anim ── */
+.slide.active .anim { animation: fadeUp 0.55s ease both; }
+.anim:nth-child(1){animation-delay:.08s} .anim:nth-child(2){animation-delay:.18s}
+.anim:nth-child(3){animation-delay:.28s} .anim:nth-child(4){animation-delay:.38s}
+.anim:nth-child(5){animation-delay:.48s}
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
-.hero-right {
-  background: var(--white);
-  padding: 80px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-left: 2px solid var(--ink);
-}
-.hero-stat-block {
-  border-top: 1px solid var(--border);
-  padding: 32px 0;
-}
-.hero-stat-block:last-child { border-bottom: 1px solid var(--border); }
-.stat-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--pink);
-  display: block;
-}
-.stat-label {
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 8px;
-  line-height: 1.5;
-}
+/* ── Shared ── */
+.eyebrow { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--muted); margin-bottom:28px; }
+.eyebrow.light { color:rgba(255,255,255,0.3); }
+.eyebrow.pink  { color:var(--pink); }
+.eyebrow.gold  { color:var(--gold); }
+.sec-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.5vw,3.8rem); font-weight:700; line-height:1.02; }
+.sec-title em { font-style:italic; color:var(--pink); }
+.body-text { font-size:14px; line-height:1.85; max-width:420px; }
+.body-text strong { font-weight:500; }
+.body-text.light { color:rgba(255,255,255,0.55); }
+.body-text.light strong { color:var(--white); }
+.body-text.dark  { color:var(--muted); }
+.body-text.dark strong { color:var(--ink); }
 
-/* ── Section commons ── */
-section { padding: 100px 60px; }
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 60px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.5px;
-}
-.section-title em { font-style: italic; color: var(--pink); }
+/* chart helpers */
+.chart-img { width:100%; height:auto; max-height:calc(45vh - 60px); object-fit:contain; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); }
+.chart-img.light-border { border-color:var(--border); background:var(--paper); }
+.chart-caption { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:1px; color:rgba(255,255,255,0.25); margin-top:6px; text-align:center; }
+.chart-caption.dark { color:var(--muted); }
+.chart-wrap { display:flex; flex-direction:column; gap:16px; width:100%; }
+.chart-placeholder { width:100%; height:180px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'DM Mono',monospace; font-size:11px; }
+.chart-placeholder.dark-bg  { background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.12); color:rgba(255,255,255,0.18); }
+.chart-placeholder.light-bg { background:var(--paper); border:1px dashed var(--border); color:var(--muted); }
 
-/* ── Problem statement ── */
-.problem {
-  background: var(--ink);
-  color: var(--white);
-}
-.problem-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 80px;
-  align-items: start;
-  margin-top: 60px;
-}
-.problem-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-style: italic;
-  font-weight: 300;
-  line-height: 1.5;
-  color: rgba(253,250,245,0.8);
-  border-left: 3px solid var(--pink);
-  padding-left: 24px;
-}
-.problem-body p {
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.9;
-  color: rgba(253,250,245,0.7);
-  margin-bottom: 20px;
-}
-.problem-body p strong { color: var(--white); font-weight: 500; }
+/* finding pill */
+.findings { display:flex; flex-direction:column; gap:12px; }
+.finding { display:flex; align-items:flex-start; gap:14px; padding:14px 16px; border-radius:6px; }
+.finding.dark-bg  { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); }
+.finding.light-bg { background:var(--paper); border:1px solid var(--border); }
+.finding-val { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; line-height:1; flex-shrink:0; min-width:72px; }
+.finding-text { font-size:12px; line-height:1.65; padding-top:4px; color:rgba(255,255,255,0.5); }
+.finding-text strong { color:var(--white); }
+.finding-text.dark-text { color:var(--muted); }
+.finding-text.dark-text strong { color:var(--ink); }
 
-/* ── Modules ── */
-.modules-section { background: var(--white); padding: 100px 0; }
-.modules-inner { padding: 0 60px; }
+/* two-col layout */
+.two-col { display:grid; grid-template-columns:1fr 1fr; height:100%; }
+.two-col > div { padding: 72px 56px; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+.divider-right { border-right:1px solid rgba(255,255,255,0.08); }
+.divider-right-light { border-right:1px solid var(--border); }
 
-.module-card {
-  display: grid;
-  grid-template-columns: 80px 1fr 1fr;
-  gap: 0;
-  border-top: 2px solid var(--ink);
-  padding: 60px 0;
-  align-items: start;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.module-card.visible { opacity: 1; transform: translateY(0); }
-.module-card:last-child { border-bottom: 2px solid var(--ink); }
+/* ═══ SLIDE 1 COVER ═══ */
+#s1 { background:var(--ink); }
+#s1 .glow { position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(200,54,90,0.1) 0%,transparent 70%); top:-100px; left:-80px; pointer-events:none; }
+.cover-stat { padding:28px 0; border-bottom:1px solid rgba(255,255,255,0.07); }
+.cover-stat:first-child { border-top:1px solid rgba(255,255,255,0.07); }
+.stat-num { font-family:'Cormorant Garamond',serif; font-size:3.8rem; font-weight:700; color:var(--pink); display:block; line-height:1; margin-bottom:6px; }
+.stat-label { font-size:12px; color:rgba(255,255,255,0.38); line-height:1.5; }
+.pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:36px; }
+.pill { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1px; padding:5px 14px; border-radius:20px; border:1px solid; }
+.pill-p { border-color:rgba(200,54,90,0.4); color:var(--pink); background:rgba(200,54,90,0.07); }
+.pill-b { border-color:rgba(96,165,250,0.4); color:#60a5fa; background:rgba(96,165,250,0.07); }
+.pill-g { border-color:rgba(201,168,76,0.4); color:var(--gold); background:rgba(201,168,76,0.07); }
 
-.module-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--border);
-  padding-top: 4px;
-}
-.module-content { padding: 0 40px 0 20px; border-right: 1px solid var(--border); }
-.module-icon { font-size: 1.5rem; margin-bottom: 16px; }
-.module-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  line-height: 1.1;
-}
-.module-dataset {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.module-desc {
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--muted);
-}
-.module-findings { padding-left: 40px; }
-.finding-item {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border);
-}
-.finding-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.finding-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1;
-  flex-shrink: 0;
-  min-width: 90px;
-}
-.pink { color: var(--pink); }
-.blue { color: var(--blue); }
-.gold { color: var(--gold); }
-.finding-text {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--muted);
-  padding-top: 6px;
-}
-.finding-text strong { color: var(--ink); font-weight: 500; }
+/* ═══ SLIDE 2 PROBLEM ═══ */
+#s2 { background:var(--paper); display:flex; flex-direction:column; justify-content:center; padding:72px 80px; }
+.cards-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:44px; }
+.card3 { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:24px; position:relative; overflow:hidden; }
+.card3::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.card3.c1::before{background:var(--pink)} .card3.c2::before{background:#60a5fa} .card3.c3::before{background:var(--gold)}
+.card3-icon { font-size:1.8rem; margin-bottom:12px; }
+.card3 h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
+.card3 p  { font-size:12.5px; color:var(--muted); line-height:1.7; }
+.card3 .eg { margin-top:14px; padding:10px 12px; background:var(--paper); border-radius:4px; font-size:11.5px; color:var(--muted); font-style:italic; line-height:1.6; border-left:2px solid var(--border); }
 
-/* ── Stats banner ── */
-.stats-banner {
-  background: var(--pink);
-  color: var(--white);
-  padding: 0 60px;
-  overflow: hidden;
-}
-.stats-ticker {
-  display: flex;
-  gap: 0;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-.ticker-item {
-  flex: 1;
-  padding: 48px 40px;
-  border-right: 1px solid rgba(255,255,255,0.2);
-  text-align: center;
-}
-.ticker-item:last-child { border-right: none; }
-.ticker-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  display: block;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.ticker-label {
-  font-size: 12px;
-  font-weight: 400;
-  opacity: 0.8;
-  line-height: 1.4;
-}
+/* ═══ SLIDE 3 MOD1 ═══ */
+#s3 { background:var(--ink); }
 
-/* ── Why it matters ── */
-.why {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-top: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
-}
-.why-left {
-  padding: 100px 60px;
-  border-right: 2px solid var(--ink);
-}
-.why-right {
-  padding: 100px 60px;
-  background: var(--ink);
-  color: var(--white);
-}
-.theme-list { margin-top: 48px; }
-.theme-item {
-  display: flex;
-  gap: 20px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-}
-.theme-item:first-child { border-top: 1px solid var(--border); }
-.theme-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  padding-top: 3px;
-  flex-shrink: 0;
-}
-.theme-body h4 {
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-.theme-body p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+/* ═══ SLIDE 4 MOD2 ═══ */
+#s4 { background:var(--white); }
 
-.reco-list { margin-top: 48px; display: flex; flex-direction: column; gap: 20px; }
-.reco-item {
-  background: rgba(253,250,245,0.05);
-  border: 1px solid rgba(253,250,245,0.1);
-  border-radius: 4px;
-  padding: 20px 24px;
-}
-.reco-item h4 { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--white); }
-.reco-item p { font-size: 13px; color: rgba(253,250,245,0.55); line-height: 1.6; }
-.reco-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--pink);
-  margin-bottom: 10px;
-  display: block;
-}
+/* ═══ SLIDE 5 MOD3 ═══ */
+#s5 { background:var(--ink); }
 
-/* ── CTA / Footer ── */
-.cta {
-  padding: 120px 60px;
-  text-align: center;
-  background: var(--white);
-}
-.cta-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 600;
-  line-height: 1.05;
-  margin-bottom: 24px;
-}
-.cta-title em { font-style: italic; color: var(--pink); }
-.cta-sub { font-size: 16px; color: var(--muted); margin-bottom: 48px; }
-.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: none;
-}
-.btn-primary { background: var(--ink); color: var(--white); }
-.btn-primary:hover { background: var(--pink); }
-.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
-.btn-outline:hover { background: var(--ink); color: var(--white); }
+/* ═══ SLIDE 6 IMPACT ═══ */
+#s6 { background:var(--pink); display:flex; flex-direction:column; justify-content:center; padding:72px 80px; }
+.cards-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:48px; }
+.card4 { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:24px 20px; }
+.card4-icon { font-size:1.8rem; margin-bottom:14px; }
+.card4 h4 { font-size:14px; font-weight:600; color:var(--white); margin-bottom:8px; }
+.card4 p  { font-size:12px; color:rgba(255,255,255,0.68); line-height:1.7; }
 
-.footer {
-  background: var(--ink);
-  color: rgba(253,250,245,0.4);
-  padding: 40px 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 2px solid rgba(253,250,245,0.1);
-}
-.footer-left {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-style: italic;
-  color: rgba(253,250,245,0.6);
-}
-.footer-right {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-align: right;
-  line-height: 1.8;
-}
+/* ═══ SLIDE 7 RECO ═══ */
+#s7 { background:var(--paper); display:grid; grid-template-columns:2fr 3fr; height:100%; }
+#s7 .left-dark { background:var(--ink); padding:72px 56px; display:flex; flex-direction:column; justify-content:center; }
+#s7 .right-light { padding:72px 56px; display:flex; flex-direction:column; justify-content:center; }
+.reco-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:36px; }
+.reco-card { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:20px; }
+.reco-tag { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--pink); margin-bottom:8px; display:block; }
+.reco-card h4 { font-size:13.5px; font-weight:600; margin-bottom:6px; }
+.reco-card p  { font-size:12px; color:var(--muted); line-height:1.6; }
 
-/* ── Nav ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  background: rgba(10,10,10,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(253,250,245,0.1);
-  padding: 0 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
-}
-nav.visible { transform: translateY(0); }
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--white);
-}
-.nav-links { display: flex; gap: 32px; }
-.nav-links a {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(253,250,245,0.5);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--pink); }
+/* ═══ SLIDE 8 FINAL ═══ */
+#s8 { background:var(--ink); display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:72px 60px; }
+#s8::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 60%,rgba(200,54,90,0.08) 0%,transparent 65%); pointer-events:none; }
+.final-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,5.5vw,5.5rem); font-weight:700; color:var(--white); line-height:0.95; margin-bottom:24px; position:relative; }
+.final-title em { font-style:italic; color:var(--pink); }
+.final-sub { font-size:15px; color:rgba(255,255,255,0.38); margin-bottom:44px; max-width:480px; line-height:1.75; position:relative; }
+.btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; position:relative; }
+.btn { display:inline-flex; align-items:center; gap:8px; padding:13px 28px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; border-radius:3px; transition:all 0.2s; cursor:pointer; border:none; }
+.btn-pk { background:var(--pink); color:var(--white); }
+.btn-pk:hover { background:#a82a49; }
+.btn-ol { background:transparent; color:rgba(255,255,255,0.55); border:1.5px solid rgba(255,255,255,0.18); }
+.btn-ol:hover { border-color:var(--pink); color:var(--pink); }
+.credits { position:absolute; bottom:28px; font-family:'DM Mono',monospace; font-size:9.5px; color:rgba(255,255,255,0.18); letter-spacing:2px; }
 
-/* ── Animations ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hero-left > * { animation: fadeUp 0.8s ease both; }
-.hero-eyebrow  { animation-delay: 0.1s; }
-.hero-title    { animation-delay: 0.25s; }
-.hero-subtitle { animation-delay: 0.4s; }
-.hero-modules  { animation-delay: 0.55s; }
-.hero-right > * { animation: fadeUp 0.8s ease both; animation-delay: 0.4s; }
-
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .hero, .why { grid-template-columns: 1fr; }
-  .hero-right { border-left: none; border-top: 2px solid var(--ink); }
-  .why-left { border-right: none; border-bottom: 2px solid var(--ink); }
-  .module-card { grid-template-columns: 60px 1fr; }
-  .module-findings { display: none; }
-  .problem-grid { grid-template-columns: 1fr; gap: 40px; }
-  .stats-ticker { flex-direction: column; }
-  .ticker-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); }
-  section, .modules-inner, .cta, nav { padding-left: 24px; padding-right: 24px; }
-  .masthead, .footer, .stats-banner { padding-left: 24px; padding-right: 24px; }
-  .hero-left, .hero-right, .why-left, .why-right { padding: 60px 24px; }
+@media(max-width:900px){
+  .two-col,.cards-3,.cards-4,.reco-grid{grid-template-columns:1fr}
+  .two-col>div:last-child{display:none}
+  #s7{grid-template-columns:1fr}
+  #s7 .left-dark{display:none}
+  #s2,#s6{padding:72px 28px 32px}
 }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav id="nav">
+<nav class="nav-bar">
   <div class="nav-logo">Gender Bias in AI</div>
-  <div class="nav-links">
-    <a href="#modules">Modules</a>
-    <a href="#findings">Findings</a>
-    <a href="#recommendations">Recommendations</a>
-    <a href="#cta">Project</a>
-  </div>
+  <div class="nav-dots" id="nav-dots"></div>
+  <div class="nav-counter" id="nav-counter">01 / 08</div>
 </nav>
-
-<!-- Masthead -->
-<div class="masthead">
-  <span class="masthead-tag">🌸 Women's Day 2026 · Data Science Investigation</span>
-  <span class="masthead-date">March 8, 2025 · Vol. I</span>
+<div class="progress-bar" id="progress"></div>
+<div class="key-hint">← → arrow keys</div>
+<div class="nav-arrows">
+  <button class="arrow-btn" id="prev-btn" onclick="prevSlide()">←</button>
+  <button class="arrow-btn" id="next-btn" onclick="nextSlide()">→</button>
 </div>
 
-<!-- Hero -->
-<section class="hero" style="padding:0">
-  <div class="hero-left">
-    <div>
-      <div class="hero-eyebrow">Data Science · AI Fairness</div>
-      <h1 class="hero-title">
-        Gender<br>
-        <em>Bias</em><br>
-        in AI
+<!-- ══════════ S1: COVER ══════════ -->
+<div class="slide active" id="s1">
+  <div class="two-col">
+    <div class="divider-right" style="position:relative;overflow:hidden">
+      <div class="glow"></div>
+      <div class="eyebrow pink anim">🌸 Women's Day 2026 · Data Science</div>
+      <h1 class="sec-title anim" style="color:var(--white);font-size:clamp(3.5rem,6vw,6rem);letter-spacing:-2px;margin-bottom:20px">
+        Gender<br><em>Bias</em><br>in AI
       </h1>
-      <p class="hero-subtitle">
-        A data-driven investigation into how artificial intelligence systems encode, amplify, and perpetuate gender inequality — across vision, language, and image generation.
+      <p class="body-text light anim" style="margin-bottom:0">
+        I investigated three AI systems using over 368,000 real data points. The finding? AI is not treating women equally and the data proves it.
       </p>
+      <div class="pills anim">
+        <span class="pill pill-p">📸 Facial Recognition</span>
+        <span class="pill pill-b">💼 Job Recommendations</span>
+        <span class="pill pill-g">🎨 Image Generation</span>
+      </div>
     </div>
-    <div class="hero-modules">
-      <div class="hero-module-tag"><span class="dot-pink"></span> Module 1 — Facial Recognition · FairFace Dataset</div>
-      <div class="hero-module-tag"><span class="dot-blue"></span> Module 2 — Job Recommender · Bias in Bios Dataset</div>
-      <div class="hero-module-tag"><span class="dot-gold"></span> Module 3 — Text-to-Image · Gender in Image Search</div>
+    <div>
+      <div class="cover-stat anim">
+        <span class="stat-num">108K</span>
+        <p class="stat-label">faces analysed to test whether AI recognises all women equally across skin tones</p>
+      </div>
+      <div class="cover-stat anim">
+        <span class="stat-num">257K</span>
+        <p class="stat-label">professional biographies examined for hidden gender stereotyping in job AI</p>
+      </div>
+      <div class="cover-stat anim">
+        <span class="stat-num">3,262</span>
+        <p class="stat-label">AI-generated images compared against real-world Bureau of Labor Statistics data</p>
+      </div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-stat-block">
-      <span class="stat-number">108K</span>
-      <p class="stat-label">facial images analysed across 7 race groups and 2 genders in the FairFace dataset</p>
-    </div>
-    <div class="hero-stat-block">
-      <span class="stat-number">257K</span>
-      <p class="stat-label">professional biographies examined for occupational gender stereotyping</p>
-    </div>
-    <div class="hero-stat-block">
-      <span class="stat-number">3,262</span>
-      <p class="stat-label">AI-generated images compared against real-world Bureau of Labor Statistics data</p>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- Problem -->
-<section class="problem" id="problem">
-  <div class="section-label" style="color:rgba(253,250,245,0.3)">01 — The Problem</div>
-  <h2 class="section-title" style="color:var(--white)">
-    AI systems are not<br><em>neutral mirrors</em>
+<!-- ══════════ S2: THE PROBLEM ══════════ -->
+<div class="slide" id="s2">
+  <div class="eyebrow anim">The Problem In Plain English</div>
+  <h2 class="sec-title anim" style="max-width:700px">AI learns from the past.<br>The past <em>wasn't fair.</em></h2>
+  <div class="cards-3">
+    <div class="card3 c1 anim">
+      <div class="card3-icon">📸</div>
+      <h3>Your face isn't treated equally</h3>
+      <p>Facial recognition used in phones, airports, and cameras makes far more mistakes on dark-skinned women than anyone else.</p>
+      <div class="eg">💬 "It's not the camera. It's what the AI was trained on."</div>
+    </div>
+    <div class="card3 c2 anim">
+      <div class="card3-icon">💼</div>
+      <h3>AI steers careers</h3>
+      <p>When AI learns from old job data, it picks up old stereotypes that surgeons are men, nurses are women and then recommends jobs the same way.</p>
+      <div class="eg">💬 "Same CV, different name. Very different job suggestions."</div>
+    </div>
+    <div class="card3 c3 anim">
+      <div class="card3-icon">🎨</div>
+      <h3>Images shape what we think is normal</h3>
+      <p>Search "CEO" or "doctor" on Google you mostly see men. Even though women make up nearly half of doctors in real life.</p>
+      <div class="eg">💬 "What AI shows shapes what people think is possible."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S3: MODULE 1 ══════════ -->
+<div class="slide" id="s3">
+  <div class="two-col">
+    <div class="divider-right">
+      <div class="eyebrow pink anim">Module 01 — Facial Recognition</div>
+      <h2 class="sec-title anim" style="color:var(--white);margin-bottom:16px">The camera <em>fails</em><br>dark-skinned women</h2>
+      <p class="body-text light anim" style="margin-bottom:28px">
+        We analysed <strong>108,000 face images</strong>. Dark-skinned women are significantly underrepresented in the training data so AI performs worst on them.
+      </p>
+      <div class="findings anim">
+        <div class="finding dark-bg">
+          <div class="finding-val" style="color:var(--pink)">0.68</div>
+          <div class="finding-text"><strong>Female-to-male ratio</strong> for dark-skinned faces. Perfect = 1.0. AI saw far more dark-skinned men than women so it learned them better.</div>
+        </div>
+        <div class="finding dark-bg">
+          <div class="finding-val" style="color:var(--pink)">34%</div>
+          <div class="finding-text"><strong>Higher error rate</strong> for dark-skinned women in commercial AI systems. This isn't a glitch it's the direct consequence of biased training data.</div>
+        </div>
+        <div class="finding dark-bg">
+          <div class="finding-val" style="color:var(--pink)">p&lt;.001</div>
+          <div class="finding-text"><strong>Statistically significant.</strong> The imbalance is not random it's a pattern baked into how the data was collected in the first place.</div>
+        </div>
+      </div>
+    </div>
+    <div style="gap:14px">
+      <div class="chart-wrap anim">
+        <img src="charts/module1_gender_by_skintone.png" class="chart-img" alt="Gender by skin tone"
+             onerror="this.outerHTML='<div class=\'chart-placeholder dark-bg\'>📊 charts/module1_gender_by_skintone.png</div>'"/>
+        <p class="chart-caption">Gender split across skin tone groups  darker bars = more men than women</p>
+        <img src="charts/module1_underrep.png" class="chart-img" alt="Underrepresentation ratio"
+             onerror="this.outerHTML='<div class=\'chart-placeholder dark-bg\'>📊 charts/module1_underrep.png</div>'"/>
+        <p class="chart-caption">Female-to-male ratio by skin tone below the red line = underrepresented</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S4: MODULE 2 ══════════ -->
+<div class="slide" id="s4">
+  <div class="two-col">
+    <div class="divider-right-light" style="background:var(--white)">
+      <div class="eyebrow anim" style="color:#1a4a8a">Module 02 — Job Recommendations</div>
+      <h2 class="sec-title anim" style="color:var(--ink);margin-bottom:16px">AI thinks <em>surgeons</em><br>are always men</h2>
+      <p class="body-text dark anim" style="margin-bottom:28px">
+        We read <strong>257,000 professional biographies</strong>. High-paying jobs were mostly about men. Lower-paying jobs  mostly women. AI learns this and recommends jobs the same way.
+      </p>
+      <div class="findings anim">
+        <div class="finding light-bg">
+          <div class="finding-val" style="color:var(--blue)">0.41</div>
+          <div class="finding-text dark-text"><strong>Bias score (Cramér's V).</strong> Anything above 0.3 is a strong bias. Gender and job type are deeply linked in AI training data.</div>
+        </div>
+        <div class="finding light-bg">
+          <div class="finding-val" style="color:var(--pink)">37%</div>
+          <div class="finding-text dark-text"><strong>Lower average salary</strong> in female-coded professions vs male-coded ones. AI doesn't just learn stereotypes it learns women's work is worth less.</div>
+        </div>
+        <div class="finding light-bg">
+          <div class="finding-val" style="color:var(--blue)">86%</div>
+          <div class="finding-text dark-text"><strong>Female in nurse biographies</strong> vs just 15% in surgeon biographies. This is what AI sees. This is what it will reproduce.</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--paper)">
+      <div class="chart-wrap anim">
+        <img src="charts/m2_occupation_skew.png" class="chart-img light-border" alt="Occupation skew"
+             onerror="this.outerHTML='<div class=\'chart-placeholder light-bg\'>📊 charts/m2_occupation_skew.png</div>'"/>
+        <p class="chart-caption dark">Each bar shows how male or female-dominated a profession is in AI training data</p>
+        <img src="charts/m2_salary.png" class="chart-img light-border" alt="Salary gap"
+             onerror="this.outerHTML='<div class=\'chart-placeholder light-bg\'>📊 charts/m2_salary.png</div>'"/>
+        <p class="chart-caption dark">Average salary for female-coded vs male-coded professions  a $44K gap</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S5: MODULE 3 ══════════ -->
+<div class="slide" id="s5">
+  <div class="two-col">
+    <div class="divider-right">
+      <div class="eyebrow gold anim">Module 03 — AI Image Generation</div>
+      <h2 class="sec-title anim" style="color:var(--white);margin-bottom:16px">Search "CEO".<br>See <em>mostly men.</em></h2>
+      <p class="body-text light anim" style="margin-bottom:28px">
+        We compared what AI image search <strong>actually shows</strong> vs <strong>real workforce data</strong>. The gap is consistent AI systematically erases women from high-status jobs in images.
+      </p>
+      <div class="findings anim">
+        <div class="finding dark-bg">
+          <div class="finding-val" style="color:var(--gold)">−18%</div>
+          <div class="finding-text"><strong>Surgeon bias gap.</strong> 40% of real surgeons are women. AI shows only 22%. That's 18 women erased from every 100 images of surgeons.</div>
+        </div>
+        <div class="finding dark-bg">
+          <div class="finding-val" style="color:var(--gold)">−17%</div>
+          <div class="finding-text"><strong>CEO bias gap.</strong> 29% of real CEOs are women. AI shows only 12%. When we only see male CEOs in images, that becomes our expectation.</div>
+        </div>
+        <div class="finding dark-bg">
+          <div class="finding-val" style="color:var(--gold)">p&lt;.05</div>
+          <div class="finding-text"><strong>Statistically significant</strong> across both Google and Bing. Not a coincidence  a consistent, measurable pattern in AI image systems.</div>
+        </div>
+      </div>
+    </div>
+    <div style="gap:14px">
+      <div class="chart-wrap anim">
+        <img src="charts/m3_bias_gap_google.png" class="chart-img" alt="Bias gap by profession"
+             onerror="this.outerHTML='<div class=\'chart-placeholder dark-bg\'>📊 charts/m3_bias_gap_google.png</div>'"/>
+        <p class="chart-caption">Pink = AI shows fewer women than exist in real life. Each bar is one profession.</p>
+        <img src="charts/m3_scatter.png" class="chart-img" alt="AI vs reality scatter"
+             onerror="this.outerHTML='<div class=\'chart-placeholder dark-bg\'>📊 charts/m3_scatter.png</div>'"/>
+        <p class="chart-caption">Points below the dashed line = AI underrepresents women vs reality</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S6: IMPACT ══════════ -->
+<div class="slide" id="s6">
+  <h2 class="anim" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:700;color:var(--white);line-height:1">
+    So what does<br>this <em style="font-style:italic;opacity:0.7">actually mean?</em>
   </h2>
-  <div class="problem-grid">
-    <blockquote class="problem-quote">
-      "Bias starts at data collection — not just in the algorithm."
-    </blockquote>
-    <div class="problem-body">
-      <p>Despite significant progress in AI capabilities, <strong>gender bias remains a persistent and measurable problem</strong> across AI systems. Facial recognition models perform significantly worse on women — particularly dark-skinned women. Job recommendation systems associate high-paying professions with men and lower-paying ones with women. Image generators consistently underrepresent women in positions of power.</p>
-      <p>These are not minor technical glitches — they are <strong>systemic patterns with real consequences</strong>: women being misidentified by security systems, steered away from career opportunities, and rendered invisible in the visual language of authority and expertise.</p>
-      <p>This project investigates, measures, and communicates these biases using real public datasets and rigorous statistical methods.</p>
+  <div class="cards-4">
+    <div class="card4 anim">
+      <div class="card4-icon">🔄</div>
+      <h4>It creates a loop</h4>
+      <p>Biased AI outputs become tomorrow's training data. If AI steers women away from senior roles, fewer women appear there in future making the bias worse over time.</p>
     </div>
-  </div>
-</section>
-
-<!-- Modules -->
-<div class="modules-section" id="modules">
-  <div class="modules-inner">
-    <div class="section-label">02 — The Investigation</div>
-
-    <div class="module-card" id="mc1">
-      <div class="module-num">01</div>
-      <div class="module-content">
-        <div class="module-icon">📸</div>
-        <h3 class="module-title">Facial Recognition Bias</h3>
-        <div class="module-dataset">Dataset: FairFace · 108,501 images</div>
-        <p class="module-desc">Analyses gender representation across skin tone groups using the Fitzpatrick scale. Measures whether dark-skinned women are underrepresented in facial recognition training data — and by how much.</p>
-      </div>
-      <div class="module-findings">
-        <div class="finding-item">
-          <div class="finding-val pink">0.68</div>
-          <div class="finding-text"><strong>Female-to-Male ratio</strong> for dark-skinned faces, the lowest of any group. Ideal parity = 1.0</div>
-        </div>
-        <div class="finding-item">
-          <div class="finding-val pink">p&lt;.001</div>
-          <div class="finding-text"><strong>Chi-Square test result</strong> — gender distribution is significantly unequal across skin tone groups</div>
-        </div>
-        <div class="finding-item">
-          <div class="finding-val pink">34%</div>
-          <div class="finding-text"><strong>Higher error rate</strong> for dark-skinned women in commercial facial recognition (Gender Shades, MIT)</div>
-        </div>
-      </div>
+    <div class="card4 anim">
+      <div class="card4-icon">👁️</div>
+      <h4>Seeing shapes believing</h4>
+      <p>When we search "doctor" and see mostly men, we unconsciously start to associate leadership with men. AI shapes how we see the world  whether we realise it or not.</p>
     </div>
-
-    <div class="module-card" id="mc2">
-      <div class="module-num">02</div>
-      <div class="module-content">
-        <div class="module-icon">💼</div>
-        <h3 class="module-title">Occupational Gender Bias</h3>
-        <div class="module-dataset">Dataset: Bias in Bios · 257,477 biographies</div>
-        <p class="module-desc">Examines 28 professions across 257K real biographies to measure how strongly gender is associated with occupation and what salary gap emerges from those associations.</p>
-      </div>
-      <div class="module-findings">
-        <div class="finding-item">
-          <div class="finding-val blue">0.41</div>
-          <div class="finding-text"><strong>Cramér's V effect size</strong>  strong gender-occupation association. Anything above 0.3 is considered large</div>
-        </div>
-        <div class="finding-item">
-          <div class="finding-val blue">~37%</div>
-          <div class="finding-text"><strong>Lower average salary</strong> associated with female-coded professions vs male-coded ones in the training data</div>
-        </div>
-        <div class="finding-item">
-          <div class="finding-val blue">86%</div>
-          <div class="finding-text"><strong>Female representation</strong> in nurse biographies vs just 15% in surgeon biographies</div>
-        </div>
-      </div>
+    <div class="card4 anim">
+      <div class="card4-icon">⚠️</div>
+      <h4>Real women are harmed</h4>
+      <p>Dark-skinned women being misidentified by facial recognition isn't just a technical error. It has led to wrongful arrests, denied access, and security failures.</p>
     </div>
-
-    <div class="module-card" id="mc3">
-      <div class="module-num">03</div>
-      <div class="module-content">
-        <div class="module-icon">🎨</div>
-        <h3 class="module-title">Text-to-Image Gender Bias</h3>
-        <div class="module-dataset">Dataset: Gender in Image Search · 3,262 labelled images</div>
-        <p class="module-desc">Compares AI image search gender representation against real-world Bureau of Labor Statistics workforce data across 45 occupations and two search providers (Google & Bing).</p>
-      </div>
-      <div class="module-findings">
-        <div class="finding-item">
-          <div class="finding-val gold">p&lt;.05</div>
-          <div class="finding-text"><strong>Paired t-test result</strong> AI systematically underrepresents women across occupations vs reality</div>
-        </div>
-        <div class="finding-item">
-          <div class="finding-val gold">−18%</div>
-          <div class="finding-text"><strong>Surgeon bias gap</strong>  AI shows 18% fewer women surgeons than actually exist in the real workforce</div>
-        </div>
-        <div class="finding-item">
-          <div class="finding-val gold">R²=.94</div>
-          <div class="finding-text"><strong>AI vs Reality correlation</strong>  AI learns from web data but compresses representation toward historical stereotypes</div>
-        </div>
-      </div>
+    <div class="card4 anim">
+      <div class="card4-icon">📊</div>
+      <h4>Data is never neutral</h4>
+      <p>Every dataset reflects the world it was collected from. If that world was unequal — and it was — the AI will be too. Fairness has to be designed in deliberately.</p>
     </div>
   </div>
 </div>
 
-<!-- Stats banner -->
-<div class="stats-banner" id="findings">
-  <div class="stats-ticker">
-    <div class="ticker-item">
-      <span class="ticker-val" data-target="3">0</span>
-      <span class="ticker-label">AI domains<br>investigated</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val" data-target="368">0</span>
-      <span class="ticker-label">thousand records<br>analysed</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val" data-target="28">0</span>
-      <span class="ticker-label">professions<br>examined</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val" data-target="37">0</span>
-      <span class="ticker-label">percent salary gap<br>in training data</span>
-    </div>
-    <div class="ticker-item">
-      <span class="ticker-val" data-target="100">0</span>
-      <span class="ticker-label">percent of bias tests<br>statistically significant</span>
-    </div>
+<!-- ══════════ S7: RECOMMENDATIONS ══════════ -->
+<div class="slide" id="s7">
+  <div class="left-dark">
+    <div class="eyebrow light anim">What Should Change</div>
+    <h2 class="sec-title anim" style="color:var(--white);margin-bottom:20px">
+      Bias can<br>be <em>fixed.</em><br>But only if<br>we measure<br>it first.
+    </h2>
+    <p class="body-text light anim">
+      These findings are not a reason to distrust AI. They're a call to build it better — with intention, diversity, and accountability.
+    </p>
   </div>
-</div>
-
-<!-- Why it matters / Recommendations -->
-<div class="why" id="recommendations">
-  <div class="why-left">
-    <div class="section-label">03 — Cross-Cutting Themes</div>
-    <h2 class="section-title">Why this<br><em>matters</em></h2>
-    <div class="theme-list">
-      <div class="theme-item">
-        <span class="theme-num">01</span>
-        <div class="theme-body">
-          <h4>Bias starts in data, not algorithms</h4>
-          <p>All three systems inherit their bias from training data that reflects historical inequality. The algorithm is often neutral but what it learns from is not.</p>
-        </div>
+  <div class="right-light">
+    <div class="eyebrow anim">4 Recommendations</div>
+    <h3 class="anim" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;line-height:1.05;margin-bottom:0">Things that need<br>to happen <em style="font-style:italic;color:var(--pink)">now</em></h3>
+    <div class="reco-grid anim">
+      <div class="reco-card">
+        <span class="reco-tag">For AI Builders</span>
+        <h4>Audit before you train</h4>
+        <p>Check who is — and isn't — in your training data before building any model. Overall accuracy hides who the system fails.</p>
       </div>
-      <div class="theme-item">
-        <span class="theme-num">02</span>
-        <div class="theme-body">
-          <h4>Feedback loops amplify inequality</h4>
-          <p>Biased AI outputs become tomorrow's training data. If job recommenders steer women away from senior roles, future datasets show fewer women there  confirming the bias in a closed loop.</p>
-        </div>
-      </div>
-      <div class="theme-item">
-        <span class="theme-num">03</span>
-        <div class="theme-body">
-          <h4>Intersectionality is the blind spot</h4>
-          <p>Dark-skinned women face compounded bias. Most fairness tools still don't measure this intersection  they evaluate gender or race, but not both simultaneously.</p>
-        </div>
-      </div>
-      <div class="theme-item">
-        <span class="theme-num">04</span>
-        <div class="theme-body">
-          <h4>Measurement is the first act of justice</h4>
-          <p>None of these biases can be fixed without first being quantified. This is why bias auditing datasets are not just academic exercises  they are infrastructure for fairness.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="why-right">
-    <div class="section-label" style="color:rgba(253,250,245,0.3)">04 — Recommendations</div>
-    <h2 class="section-title" style="color:var(--white)">What should<br><em>change</em></h2>
-    <div class="reco-list">
-      <div class="reco-item">
-        <span class="reco-tag">For Practitioners</span>
-        <h4>Audit training data intersectionally</h4>
-        <p>Measure gender × race × age representation before model training. Overall accuracy hides who the system fails.</p>
-      </div>
-      <div class="reco-item">
+      <div class="reco-card">
         <span class="reco-tag">For Researchers</span>
-        <h4>Build intersectional benchmarks</h4>
-        <p>Single-axis fairness metrics are insufficient. Develop benchmarks that measure bias at the intersection of multiple identity dimensions.</p>
+        <h4>Measure intersectionally</h4>
+        <p>Don't measure gender and race separately. Dark-skinned women face both at once. Fairness tools need to keep up.</p>
       </div>
-      <div class="reco-item">
+      <div class="reco-card">
         <span class="reco-tag">For Organisations</span>
-        <h4>Diversify AI teams</h4>
-        <p>Lived experience catches what p-values miss. Include diverse voices at every stage — from data collection to deployment decisions.</p>
+        <h4>Hire diverse teams</h4>
+        <p>People with different lived experiences will spot bias a homogeneous team simply won't notice  no matter how skilled.</p>
       </div>
-      <div class="reco-item">
+      <div class="reco-card">
         <span class="reco-tag">For Everyone</span>
-        <h4>Demand transparency</h4>
-        <p>Ask AI vendors for disaggregated performance metrics. Accountability starts with visibility.</p>
+        <h4>Ask harder questions</h4>
+        <p>When you use AI, ask: who does this work well for? Who might it fail? Accountability starts with asking.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CTA -->
-<section class="cta" id="cta">
-  <div class="section-label" style="justify-content:center; margin-bottom:40px">05 — The Project</div>
-  <h2 class="cta-title">Explore the<br><em>full analysis</em></h2>
-  <p class="cta-sub">Full Jupyter notebook · Statistical tests · Interactive charts · Real datasets</p>
-  <div class="cta-buttons">
-    <a href="https://github.com/YOUR_USERNAME/gender-bias-in-ai" class="btn btn-primary" target="_blank">
-      ⬡ View on GitHub
-    </a>
-    <a href="https://kaggle.com/YOUR_USERNAME" class="btn btn-outline" target="_blank">
-      ◈ Open Notebook
-    </a>
-    <a href="gender_bias_ai.html" class="btn btn-outline">
-      ▷ Interactive Dashboard
-    </a>
+<!-- ══════════ S8: FINAL ══════════ -->
+<div class="slide" id="s8">
+  <h2 class="final-title anim">Fair AI is<br><em>possible.</em><br>But it won't<br>happen by accident.</h2>
+  <p class="final-sub anim">Explore the full analysis — every statistical test, every chart, every line of code openly available on GitHub.</p>
+  <div class="btns anim">
+    <a href="https://github.com/4068-Tiffany/gender-bias-in-ai" class="btn btn-pk" target="_blank">⬡ View on GitHub</a>
+    <a href="https://kaggle.com/YOUR_USERNAME" class="btn btn-ol" target="_blank">◈ Open Notebook</a>
+    <a href="gender_bias_ai.html" class="btn btn-ol">▷ Interactive Dashboard</a>
   </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-left">Gender Bias in AI</div>
-  <div class="footer-right">
-    Built for Women's Day 2025<br>
-    Data: FairFace · Bias in Bios · Gender in Image Search<br>
-    Python · Pandas · Matplotlib · SciPy
-  </div>
-</footer>
+  <div class="credits">Built for Women's Day 2026 · Python · Pandas · Matplotlib · SciPy · 368K records analysed</div>
+</div>
 
 <script>
-// ── Sticky nav ────────────────────────────────────────────────────────────────
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('visible', window.scrollY > 400);
+const TOTAL = 8;
+let current = 0, animating = false;
+const slideIds = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+
+// Build dots
+const dotsEl = document.getElementById('nav-dots');
+slideIds.forEach((_,i) => {
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
 });
 
-// ── Scroll reveal for module cards ───────────────────────────────────────────
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 150);
-    }
-  });
-}, { threshold: 0.15 });
-document.querySelectorAll('.module-card').forEach(c => observer.observe(c));
-
-// ── Counter animation ─────────────────────────────────────────────────────────
-function animateCounter(el, target, duration = 1800) {
-  let start = 0;
-  const step = timestamp => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.floor(eased * target).toLocaleString();
-    if (progress < 1) requestAnimationFrame(step);
-    else el.textContent = target.toLocaleString();
-  };
-  requestAnimationFrame(step);
+function updateUI() {
+  document.getElementById('nav-counter').textContent =
+    String(current+1).padStart(2,'0') + ' / ' + String(TOTAL).padStart(2,'0');
+  document.querySelectorAll('.nav-dot').forEach((d,i) => d.classList.toggle('active', i===current));
+  document.getElementById('progress').style.width = ((current+1)/TOTAL*100)+'%';
+  document.getElementById('prev-btn').disabled = current===0;
+  document.getElementById('next-btn').disabled = current===TOTAL-1;
 }
 
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('[data-target]').forEach(el => {
-        animateCounter(el, parseInt(el.dataset.target));
-      });
-      counterObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.stats-ticker').forEach(el => counterObserver.observe(el));
+function goTo(idx) {
+  if (animating || idx===current || idx<0 || idx>=TOTAL) return;
+  animating = true;
+  const slides = slideIds.map(id => document.getElementById(id));
+  slides[current].classList.add('exit');
+  slides[current].classList.remove('active');
+  setTimeout(() => {
+    slides[current].classList.remove('exit');
+    current = idx;
+    slides[current].classList.add('active');
+    updateUI();
+    setTimeout(() => { animating = false; }, 700);
+  }, 360);
+}
+
+function nextSlide() { goTo(current+1); }
+function prevSlide() { goTo(current-1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') nextSlide();
+  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   prevSlide();
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend',   e => {
+  const d = tx - e.changedTouches[0].clientX;
+  if (Math.abs(d)>50) d>0 ? nextSlide() : prevSlide();
+});
+
+updateUI();
 </script>
 </body>
 </html>
